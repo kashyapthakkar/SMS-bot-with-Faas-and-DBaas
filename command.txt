@@ -1,0 +1,11 @@
+Twilio SMS bot Phone Number: +12892046165
+
+Command: 
+Get Repos username
+
+Description:	
+Gives you the number of public github repositories made available by given username on github
+
+Example:		
+1. Get Repos kashyapthakkar - Will reply with "User kashyapthakkar has 13 public repositories"
+2. Get Repos blasten - Will reply with "User blasten has 46 public repositories"

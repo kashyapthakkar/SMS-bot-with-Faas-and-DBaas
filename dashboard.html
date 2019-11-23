@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Dashboard</title>
+    <!--StAuth10065: I Kashyap Thakkar, 000742712 certify that this material is my original work. No other person's work has been used without due acknowledgement. I have not made my work available to anyone else.-->
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+        
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: center;
+            padding: 8px;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
+  </head>
+  
+  <body>
+    <div id="main">
+        <h1 style="text-align: center;">Dashboard</h1>
+        <table id="table">
+            <tr>
+                <th>Status</th>
+                <th>Message</th>
+                <th>Timestamp</th>
+            </tr>
+        </table>
+    </div>
+    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://code.jquery.com/jquery-1.11.1.js"></script>
+    <script> 
+        var timestamp = new Date();
+        var socket = io();      
+        socket.emit('sql req', "questionData"); 
+        socket.on('insert message', function(data) {
+            var table = document.getElementById("table");
+            var row = table.insertRow(1);
+            var cell1 = row.insertCell(0);
+            var cell2 = row.insertCell(1);
+            var cell3 = row.insertCell(2);
+            cell1.innerHTML = data.userStatus;
+            cell2.innerHTML = data.userMessage;
+            cell3.innerHTML = timestamp;
+        });
+        
+        socket.on('sql data', function(data) {
+            var table = document.getElementById("table");
+            var row, cell1, cell2, cell3;
+            for(var i=0; i < data.length; i++){
+                row = table.insertRow(1);
+                cell1 = row.insertCell(0);
+                cell2 = row.insertCell(1);
+                cell3 = row.insertCell(2);
+                cell1.innerHTML = data[i].status;
+                cell2.innerHTML = data[i].message;
+                cell3.innerHTML = data[i].timestamp;
+            }
+        });
+    </script>
+    
+  </body>
+</html>
